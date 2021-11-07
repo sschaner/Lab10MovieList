@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lab10MovieList
 {
-    public class Movie
+    public class Movie : IComparable<Movie>
     {
         private string title;
         public string Title
@@ -24,6 +24,11 @@ namespace Lab10MovieList
         {
             Title = title;
             Category = category;
+        }
+
+        public int CompareTo(Movie other)
+        {
+            return this.Title.CompareTo(other.Title);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Lab10MovieList
 {
@@ -12,6 +13,8 @@ namespace Lab10MovieList
             Console.Title = "Lab 10: Movie List!";
 
             List<Movie> movieList = CreateAndStoreEachMovieInAList();
+
+            movieList.Sort();
 
             Console.WriteLine("Welcome to the Movie List Applicaton!\n");
             Console.WriteLine("There are 10 movies in this list");
