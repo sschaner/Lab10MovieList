@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lab10MovieList
 {
-    enum MovieCategory
+    public enum Category
     {
         Animated = 1,
         Drama,
