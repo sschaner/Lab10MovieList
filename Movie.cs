@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Lab10MovieList
 {
-    class Movie
+    public class Movie
     {
         private string title;
         public string Title
@@ -13,14 +13,14 @@ namespace Lab10MovieList
             set { title = value; }
         }
 
-        private string category;
-        public string Category
+        private Category category;
+        public Category Category
         {
             get { return category; }
             set { category = value; }
         }
 
-        public Movie(string title, string category)
+        public Movie(string title, Category category)
         {
             Title = title;
             Category = category;
