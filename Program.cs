@@ -11,65 +11,19 @@ namespace Lab10MovieList
 
             Console.Title = "Lab 10: Movie List!";
 
+            List<Movie> movieList = CreateAndStoreEachMovieInAList();
+
             Console.WriteLine("Welcome to the Movie List Applicaton!\n");
             Console.WriteLine("There are 10 movies in this list");
 
-            GetCategory(isValidInput);
+            int getCategory = GetCategory(isValidInput);
 
+            Console.WriteLine(ListOfMoviesByCategory(getCategory, movieList));
             
 
-            List<Movie> movieList = CreateAndStoreEachMovieInAList();
-
-            // Add movies to the list
-            foreach (Movie movie in movieList)
-            {
-                Console.WriteLine($"Movie title: {movie.Title}, Movie category: {movie.Category}");
-            }
+            
             
             Console.ReadKey();
-        }
-
-        // 
-        public static int GetCategory(bool isValidInput)
-        {
-            int categoryNumber = -1;
-            do
-            {
-                // Ask the user what category they are interested in
-                Console.Write("What category are you interested in? ");
-                string userInput = Console.ReadLine();
-                switch (userInput.ToLower().Trim())
-                {
-                    case "animated":
-                        categoryNumber = 1;
-                        break;
-                    case "drama":
-                        categoryNumber = 2;
-                        break;
-                    case "horror":
-                        categoryNumber = 3;
-                        break;
-                    case "scifi":
-                        categoryNumber = 4;
-                        break;
-                    default:
-                        break;
-                }
-
-                switch (categoryNumber)
-                {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
-                        isValidInput = true;
-                        break;
-                    default:
-                        Console.WriteLine("Please enter one of the following categories: animated, drama, horror, scifi.");
-                        break;
-                }
-            } while (isValidInput == false);
-            return categoryNumber;
         }
 
         // Create the movies
@@ -102,5 +56,101 @@ namespace Lab10MovieList
 
             return movieList;
         }
+
+        // Get a category from the user and check if it's valid.
+        public static int GetCategory(bool isValidInput)
+        {
+            int categoryNumber = -1;
+            do
+            {
+                // Ask the user what category they are interested in
+                Console.Write("What category are you interested in? ");
+                string userInput = Console.ReadLine();
+
+                // Assign an int value, determined by the users input. 
+                switch (userInput.ToLower().Trim())
+                {
+                    case "animated":
+                        categoryNumber = 1;
+                        break;
+                    case "drama":
+                        categoryNumber = 2;
+                        break;
+                    case "horror":
+                        categoryNumber = 3;
+                        break;
+                    case "scifi":
+                        categoryNumber = 4;
+                        break;
+                    default:
+                        break;
+                }
+
+                // Do validation on the users input
+                switch (categoryNumber)
+                {
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        isValidInput = true;
+                        break;
+                    default:
+                        Console.WriteLine("Please enter one of the following categories: animated, drama, horror, scifi.");
+                        break;
+                }
+            } while (isValidInput == false);
+            return categoryNumber;
+        }
+
+        public static string ListOfMoviesByCategory(int getCategory, List<Movie> movieList)
+        {
+            string message = "";
+            switch (getCategory)
+            {
+                case 1:
+                    foreach (Movie movie in movieList)
+                    {
+                        if (movie.Category == Category.Animated)
+                        {
+                            message += $"{movie.Title}\n";
+                        }
+                    }
+                    break;
+                case 2:
+                    foreach (Movie movie in movieList)
+                    {
+                        if (movie.Category == Category.Drama)
+                        {
+                            message += $"{movie.Title}\n";
+                        }
+                    }
+                    break;
+                case 3:
+                    foreach (Movie movie in movieList)
+                    {
+                        if (movie.Category == Category.Horror)
+                        {
+                            message += $"{movie.Title}\n";
+                        }
+                    }
+                    break;
+                case 4:
+                    foreach (Movie movie in movieList)
+                    {
+                        if (movie.Category == Category.Scifi)
+                        {
+                            message += $"{movie.Title}\n";
+                        }
+                    }
+                    break;
+                default:
+                    break;
+            }
+
+
+            return message;
+        }
+        
     }
 }
