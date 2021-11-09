@@ -12,19 +12,48 @@ namespace Lab10MovieList
 
             Console.Title = "Lab 10: Movie List!";
 
-            List<Movie> movieList = CreateAndStoreEachMovieInAList();
-
-            List<string> movieTitles = movieList.Select(x => x.Title).ToList();
-            movieList = movieList.OrderBy(x=>x.Title).ToList();
-
-            
-
             Console.WriteLine("Welcome to the Movie List Applicaton!\n");
             Console.WriteLine("There are 10 movies in this list");
 
-            Category getCategory = GetCategory(isValidInput);
+            bool enterAgain = false;
+            do // Loops as long as the user wants to enter a category
+            {
+                List<Movie> movieList = CreateAndStoreEachMovieInAList();
 
-            Console.WriteLine(ListOfMoviesByCategory(getCategory, movieList));
+                List<string> movieTitles = movieList.Select(x => x.Title).ToList();
+                movieList = movieList.OrderBy(x => x.Title).ToList();                
+
+                Category getCategory = GetCategory(isValidInput);
+
+                Console.WriteLine(ListOfMoviesByCategory(getCategory, movieList));
+
+                string continueInput = "";
+                do // Loop for determining if the user wants to enter a category again
+                {
+                    // Ask the user if they would like to continue
+                    Console.Write("Would you like to continue (y/n)? ");
+                    string userInput = Console.ReadLine();
+                    continueInput = userInput;
+                    if (continueInput.ToLower().Trim() == "y")
+                    {
+                        enterAgain = true;
+                    }
+                    else if (continueInput.ToLower().Trim() == "n")
+                    {
+                        Console.WriteLine("Goodbye!");
+                        goto Exit;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Please enter either 'y' or 'n'");
+                    }
+                } while (continueInput.ToLower().Trim() != "y");
+
+            } while (enterAgain == true);
+
+        Exit:
+
+            
             
             Console.ReadKey();
         }
