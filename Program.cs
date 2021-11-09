@@ -31,7 +31,7 @@ namespace Lab10MovieList
                 do // Loop for determining if the user wants to enter a category again
                 {
                     // Ask the user if they would like to continue
-                    Console.Write("Would you like to continue (y/n)? ");
+                    Console.Write("Continue? (y/n): ");
                     string userInput = Console.ReadLine();
                     continueInput = userInput;
                     if (continueInput.ToLower().Trim() == "y")
@@ -45,20 +45,18 @@ namespace Lab10MovieList
                     }
                     else
                     {
-                        Console.WriteLine("Please enter either 'y' or 'n'");
+                        Console.WriteLine("Continue? (y/n): ");
                     }
                 } while (continueInput.ToLower().Trim() != "y");
 
             } while (enterAgain == true);
 
         Exit:
-
-            
             
             Console.ReadKey();
         }
 
-        // Create the movies
+        // Create the movies and store them in a list
         public static List<Movie> CreateAndStoreEachMovieInAList()
         {
             // Create a list to store the movies
@@ -76,6 +74,7 @@ namespace Lab10MovieList
             Movie movieTen = new Movie("Coco", Category.Animated);
             // Movie movieEleven = new Movie("Star Trek", Category.Scifi);
 
+            // Add all the movies to the list
             movieList.Add(movieOne);
             movieList.Add(movieTwo);
             movieList.Add(movieThree);
@@ -144,48 +143,11 @@ namespace Lab10MovieList
         public static string ListOfMoviesByCategory(Category getCategory, List<Movie> movieList)
         {
             string message = "";
-            switch (getCategory)
+            // update the message, depending on whether the movie category is equal to getCategory
+            foreach (Movie movie in movieList.Where(x => x.Category == getCategory))
             {
-                case Category.Animated:
-                    foreach (Movie movie in movieList)
-                    {
-                        if (movie.Category == Category.Animated)
-                        {
-                            message += $"{movie.Title}\n";
-                        }
-                    }
-                    break;
-                case Category.Drama:
-                    foreach (Movie movie in movieList)
-                    {
-                        if (movie.Category == Category.Drama)
-                        {
-                            message += $"{movie.Title}\n";
-                        }
-                    }
-                    break;
-                case Category.Horror:
-                    foreach (Movie movie in movieList)
-                    {
-                        if (movie.Category == Category.Horror)
-                        {
-                            message += $"{movie.Title}\n";
-                        }
-                    }
-                    break;
-                case Category.Scifi:
-                    foreach (Movie movie in movieList)
-                    {
-                        if (movie.Category == Category.Scifi)
-                        {
-                            message += $"{movie.Title}\n";
-                        }
-                    }
-                    break;
-                default:
-                    break;
+                message += $"{movie.Title}\n";
             }
-
 
             return message;
         }
