@@ -14,17 +14,17 @@ namespace Lab10MovieList
 
             List<Movie> movieList = CreateAndStoreEachMovieInAList();
 
-            movieList.Sort();
+            List<string> movieTitles = movieList.Select(x => x.Title).ToList();
+            movieList = movieList.OrderBy(x=>x.Title).ToList();
+
+            
 
             Console.WriteLine("Welcome to the Movie List Applicaton!\n");
             Console.WriteLine("There are 10 movies in this list");
 
-            int getCategory = GetCategory(isValidInput);
+            Category getCategory = GetCategory(isValidInput);
 
             Console.WriteLine(ListOfMoviesByCategory(getCategory, movieList));
-            
-
-            
             
             Console.ReadKey();
         }
@@ -45,6 +45,7 @@ namespace Lab10MovieList
             Movie movieEight = new Movie("Man of Steel", Category.Scifi);
             Movie movieNine = new Movie("The Greatest Showman", Category.Drama);
             Movie movieTen = new Movie("Coco", Category.Animated);
+            // Movie movieEleven = new Movie("Star Trek", Category.Scifi);
 
             movieList.Add(movieOne);
             movieList.Add(movieTwo);
@@ -61,57 +62,62 @@ namespace Lab10MovieList
         }
 
         // Get a category from the user and check if it's valid.
-        public static int GetCategory(bool isValidInput)
+        public static Category GetCategory(bool isValidInput)
         {
-            int categoryNumber = -1;
+            Category category;
             do
             {
                 // Ask the user what category they are interested in
-                Console.Write("What category are you interested in? ");
+                Console.Write("What category are you interested in?\n(Animated = 1, Drama = 2, Horror = 3, Scifi = 4) ");
                 string userInput = Console.ReadLine();
 
                 // Assign an int value, determined by the users input. 
                 switch (userInput.ToLower().Trim())
                 {
                     case "animated":
-                        categoryNumber = 1;
+                    case "1":
+                        category = Category.Animated;
                         break;
                     case "drama":
-                        categoryNumber = 2;
+                    case "2":
+                        category = Category.Drama;
                         break;
                     case "horror":
-                        categoryNumber = 3;
+                    case "3":
+                        category = Category.Horror;
                         break;
                     case "scifi":
-                        categoryNumber = 4;
+                    case "4":
+                        category = Category.Scifi;
                         break;
                     default:
+                        category = Category.Invalid;
                         break;
                 }
 
                 // Do validation on the users input
-                switch (categoryNumber)
+                switch (category)
                 {
-                    case 1:
-                    case 2:
-                    case 3:
-                    case 4:
+                    case Category.Animated:
+                    case Category.Drama:
+                    case Category.Horror:
+                    case Category.Scifi:
                         isValidInput = true;
                         break;
                     default:
-                        Console.WriteLine("Please enter one of the following categories: animated, drama, horror, scifi.");
+                        Console.WriteLine("Please enter a valid category.\n");
                         break;
                 }
             } while (isValidInput == false);
-            return categoryNumber;
+            return category;
         }
 
-        public static string ListOfMoviesByCategory(int getCategory, List<Movie> movieList)
+        public static string ListOfMoviesByCategory(Category getCategory, List<Movie> movieList)
         {
             string message = "";
             switch (getCategory)
             {
-                case 1:
+                case Category.Animated:
                     foreach (Movie movie in movieList)
                     {
                         if (movie.Category == Category.Animated)
@@ -120,7 +126,7 @@ namespace Lab10MovieList
                         }
                     }
                     break;
-                case 2:
+                case Category.Drama:
                     foreach (Movie movie in movieList)
                     {
                         if (movie.Category == Category.Drama)
@@ -129,7 +135,7 @@ namespace Lab10MovieList
                         }
                     }
                     break;
-                case 3:
+                case Category.Horror:
                     foreach (Movie movie in movieList)
                     {
                         if (movie.Category == Category.Horror)
@@ -138,7 +144,7 @@ namespace Lab10MovieList
                         }
                     }
                     break;
-                case 4:
+                case Category.Scifi:
                     foreach (Movie movie in movieList)
                     {
                         if (movie.Category == Category.Scifi)
