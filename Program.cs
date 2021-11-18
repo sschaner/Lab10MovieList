@@ -45,10 +45,11 @@ namespace Lab10MovieList
                     }
                     else
                     {
-                        Console.WriteLine("Continue? (y/n): ");
+                        Console.WriteLine("Please enter valid input.");
+                        continue;
                     }
                 } while (continueInput.ToLower().Trim() != "y");
-
+                Console.Clear();
             } while (enterAgain == true);
 
         Exit:
